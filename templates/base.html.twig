@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- gabarit global à tout le site -->
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+
+        <title>SymBNB - {% block title %}Bienvenue (title de base!){% endblock %}</title>
+
+        {% block stylesheets %}
+        <!-- le chemin vers la feuille css apparaitra pour toutes les pages -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/app.css">
+        {% endblock %}
+
+    </head>
+
+    <body>
+
+        {# Header #}
+        {% include 'partials/header.html.twig' %}
+
+        {# Alertes #}
+        {% include 'partials/alert.html.twig' %}   
+
+        {% block body %}{% endblock %}
+        
+        {# Footer #}
+        {% include 'partials/footer.html.twig' %}*
+        
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        {% block javascripts %}{% endblock %}
+
+    </body>
+
+</html>

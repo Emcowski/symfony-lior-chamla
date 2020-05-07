@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modification d'une annonce
+{% endblock %}
+
+{# Traiter le theme _collection, fichier commun à plusieurs tpl (edit et new) #}
+{% form_theme form 'ad/_collection.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier l'annonce : <em>{{ ad.title }}</em></h1>
+        
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        {# Bouton valider ajout de l'annonce #}
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/ad.js"></script>
+{% endblock %}
