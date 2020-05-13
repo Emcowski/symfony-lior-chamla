@@ -19,3 +19,18 @@ fieldset.form-group {
     padding: 15px;
     border: 5px solid grey;
 }
+
+/* Avatar de l'auteur dans affichage une annonce */
+.avatar {
+    max-width: 128px;
+    max-height: 128px;
+    border-radius: 50%;
+}
+.avatar-medium {
+    max-width: 64px;
+    max-height: 64px;
+}
+.avatar-mini {
+    max-width: 24px;
+    max-height: 24px;
+}

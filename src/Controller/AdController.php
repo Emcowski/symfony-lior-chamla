@@ -51,6 +51,10 @@ class AdController extends AbstractController
                 // Manager persiste l'image avant de persister l'annonce
                 $manager->persist($image);
             }
+
+            // Relier l'auteur à l'utilisateur connecté lors de la création d'une annonce
+            $ad->setAuthor($this->getUser());
+
             //Prévenir doctrine qu'on veut sauvegarder
             $manager->persist($ad);
             //Envoyer la req SQL
