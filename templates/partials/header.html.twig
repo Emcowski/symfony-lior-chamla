@@ -19,7 +19,7 @@
         {% if app.user %}
             <li class="nav-item dropdown">
                 <a href="#" id="accountDropdownLink" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    <img src="{{ app.user.picture }}" alt="Avatar de {{ app.user.fullName }}" class="avatar avatar-mini">{{ app.user.fullName }}
+                    <img src="{{ app.user.picture }}" alt="Avatar de {{ app.user.fullName }}" class="avatar avatar-mini mr-2">{{ app.user.fullName }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
                     <a href="{{ path('ads_create') }}" class="dropdown-item">Créer une annonce</a>

@@ -22,6 +22,10 @@
             </a>
             <p class="card-text">{{ ad.introduction }}</p>
             <a href="{{ url }}" class="btn btn-secondary">En savoir plus</a>
+            {# Si l'utilisateur connecté correspond à l'utilisateur qui a créé l'annonce, alors on affiche un lien de modif de cette annonce #}
+            {% if app.user and app.user == ad.author %}
+                <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-primary">Modifier l'annonce</a>
+            {% endif %}
         </div>
 
     </div>
