@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Page introuvable
+{% endblock %}
+
+{% block body %}
+
+    <div class="container text-center">
+        <h1>Page introuvable</h1>
+        <em>erreur 404</em>
+        <p>Retourner à la page d'accueil ou à la liste des annonces :</p>
+        <a href="{{ path('homepage')}}" class="btn btn-primary">Accueil</a>
+        <a href="{{ path('ads_index')}}" class="btn btn-primary">Annonces</a>
+    </div>
+
+{% endblock %}

@@ -1,6 +1,13 @@
+/* Surcharge classes bootstrap */
 div.container {
     margin-top: 20px;
 }
+
+.alert-light {
+    background-color: #eeeeee;
+    border-radius: 5px;
+}
+
 
 /* Bandeau de page item ad */
 div.ad-headband {
@@ -17,10 +24,10 @@ div.ad-headband h1, div.ad-headband p, div.carousel-caption {
 fieldset.form-group {
     background: #e3e3e3;
     padding: 15px;
-    border: 5px solid grey;
+    border: 1px solid grey;
 }
 
-/* Avatar de l'auteur dans affichage une annonce */
+/* Affichage annonce : Avatar de l'auteur */
 .avatar {
     max-width: 128px;
     max-height: 128px;
@@ -33,4 +40,10 @@ fieldset.form-group {
 .avatar-mini {
     max-width: 24px;
     max-height: 24px;
+}
+
+/* Réserver une annonce : date bloquée */
+td.disabled.disabled-date.day {
+    color: #ae0f0f;
+    text-decoration: line-through;
 }

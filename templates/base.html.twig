@@ -8,9 +8,9 @@
         <title>SymBNB - {% block title %}Bienvenue (title de base!){% endblock %}</title>
 
         {% block stylesheets %}
-        <!-- le chemin vers la feuille css apparaitra pour toutes les pages -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/app.css">
+            <!-- css pour toutes les pages -->
+            <link rel="stylesheet" href="/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/css/app.css">
         {% endblock %}
 
     </head>
@@ -28,10 +28,11 @@
         {# Footer #}
         {% include 'partials/footer.html.twig' %}
         
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/popper.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}        
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/popper.min.js"></script>
+            <script src="/js/bootstrap.min.js"></script>
+        {% endblock %}
 
     </body>
 

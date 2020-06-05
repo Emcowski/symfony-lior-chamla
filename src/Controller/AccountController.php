@@ -32,7 +32,7 @@ class AccountController extends AbstractController
         $hasError = $error !== null;
         $username = $utils->getLastUserName();
 
-        return $this->render('account/login.html.twig', [
+        return $this->render('account/account_login.html.twig', [
             'hasError' => $hasError,
             'username' => $username,
         ]);
@@ -73,7 +73,7 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('account_login');
         }
 
-        return $this->render('account/registration.html.twig', [
+        return $this->render('account/account_registration.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -106,7 +106,7 @@ class AccountController extends AbstractController
             );
         }
 
-        return $this->render('account/edit-profile.html.twig', [
+        return $this->render('account/account_edit_profile.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -158,7 +158,7 @@ class AccountController extends AbstractController
 
         }
 
-        return $this->render('account/password-update.html.twig', [
+        return $this->render('account/account_password_update.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -177,6 +177,18 @@ class AccountController extends AbstractController
         return $this->render('user/user-page.html.twig', [
             'user' => $user,
         ]);
+    }
+    
+    /**
+     * Afficher la liste des réservations faites par l'user
+     * 
+     * @Route("/account/bookings", name="account_bookings")
+     *
+     * @return Response
+     * 
+     */
+    public function bookings() {
+        return $this->render('account/account_bookings.html.twig');
     }
 
 }

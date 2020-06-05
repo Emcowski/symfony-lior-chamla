@@ -23,7 +23,7 @@ class AdController extends AbstractController
     {  
         $ads = $repo->findAll();
 
-        return $this->render('ad/index.html.twig', [
+        return $this->render('ad/ad_index.html.twig', [
             'ads' => $ads,
         ]);
     }
@@ -72,7 +72,7 @@ class AdController extends AbstractController
             ]);
         }
 
-        return $this->render('ad/new.html.twig', [
+        return $this->render('ad/ad_new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -118,7 +118,7 @@ class AdController extends AbstractController
 
 
 
-        return $this->render('ad/edit.html.twig', [
+        return $this->render('ad/ad_edit.html.twig', [
             'form' => $form->createView(),
             'ad' => $ad,
         ]);
@@ -133,7 +133,7 @@ class AdController extends AbstractController
      */
     public function show(Ad $ad) {
         // Convertir un paramètre reçu dans la route (ici le slug) en un objet déjà construit (ici l'annonce)
-        return $this->render('ad/show.html.twig', [
+        return $this->render('ad/ad_show.html.twig', [
             'ad' => $ad,
         ]);
     }

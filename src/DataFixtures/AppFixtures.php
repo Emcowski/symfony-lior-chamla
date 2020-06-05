@@ -7,6 +7,7 @@ use Faker\Factory;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
+use App\Entity\Booking;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -56,7 +57,7 @@ class AppFixtures extends Fixture
             //$picture = $faker->imageUrl(150,150);
             $picture = 'https://randomuser.me/api/portraits/';
             // Chiffre au hasard pour passer à l'URL
-            $pictureId = $faker->numberBetween(1, 99) . 'jpg';
+            $pictureId = $faker->numberBetween(1, 99) . '.jpg';
             // Si le genre fourni est masculin ou féminin on ajoute le chiffre au hasard
             $picture .= ($genre == "male" ? 'men/' : 'women/') . $pictureId;
             // Cette méthode encode un string avec l'algorithme choisi dans security.yml ; elle prend en param l'entité sur laquelle on souhaite opérer (ici User) puis en second apram le mot à encoder
@@ -106,7 +107,38 @@ class AppFixtures extends Fixture
                       ->setCaption($faker->sentence())
                       ->setAd($ad);
 
-                      $manager->persist($image);
+                $manager->persist($image);
+            }
+
+            // Gestion des réservations
+            for($k = 1; $k <= mt_rand(0, 10); $k++) {
+                $booking = new Booking();
+
+                // Date du jour de la réservation au minimum il y a 6 mois
+                $createdAt = $faker->dateTimeBetween('-6 months');
+                // Date à laquelle la réservation va commencer
+                $startDate = $faker->dateTimeBetween('-3 months');
+                // Durée de la réservation
+                $duration = mt_rand(3, 10);
+                // Fin de la réservation = $duration + $startDate. Avec clone() on duplique la valeur de $startDate afin que l'initiale ne soit pas modifiée
+                $endDate = (clone $startDate)->modify("+$duration days");
+                // Le tarif du nombre de jours restés = prix d'un jour x durée
+                $amount = $ad->getPrice() * $duration;
+                // La personne qui réserve, soit un utilisateur : prix dans le tableau des utilisateurs disponibles -1 puisque le tableau commence à 0...
+                $booker = $users[mt_rand(0, count($users) -1)];
+                // Commentaire
+                $comment = $faker->paragraph();
+
+                // Configuration de la réservation pour créer le fake
+                $booking->setBooker($booker)
+                        ->setAd($ad)
+                        ->setStartDate($startDate)
+                        ->setEndDate($endDate)
+                        ->setCreatedAt($createdAt)
+                        ->setAmount($amount)
+                        ->setComment($comment);
+
+                $manager->persist($booking);
             }
                 
             $manager->persist($ad);

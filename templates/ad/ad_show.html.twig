@@ -17,7 +17,7 @@
                 {% else %}
                     <strong>{{ ad.rooms }} chambres</strong> pour <strong>{{ ad.price }} &euro;</strong> par nuit
                 {% endif %}
-                <a href="#" class="btn btn-primary">Réserver</a>
+                <a href="{{ path('booking_create', {'slug': ad.slug}) }}" class="btn btn-primary">Réserver</a>
                 {# Si l'utilisateur connecté correspond à l'utilisateur qui a créé l'annonce, alors on affiche un lien de modif de cette annonce #}
                 {% if app.user and app.user == ad.author %}
                     <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-primary">Modifier l'annonce</a>
