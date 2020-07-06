@@ -1,0 +1,39 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}
+    Edition du commentaire {{comment.id}}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+	    <h1 class="my-5">Edition du commentaire de {{comment.author.fullName}} (#{{comment.id}})</h1>
+
+        <div class="alert alert-info">
+            <strong>Auteur : </strong>
+            {{comment.author.fullName}}
+            <br>
+            <strong>Date de création: </strong>
+            {{comment.createdAt|date('d/m/Y H:i')}}
+            <br>
+            <strong>Annonce liée : </strong>
+            <a href="{{ path('ads_show', {'slug': comment.ad.slug}) }}">{{comment.ad.title}}</a>
+            <br>
+            <strong>Note donnée : </strong>
+            {{comment.rating}}
+        </div>
+
+		{{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check"></i>
+                Enregistrer
+            </button>
+
+		{{ form_end(form) }}
+
+	</div>
+{% endblock %}
+
+

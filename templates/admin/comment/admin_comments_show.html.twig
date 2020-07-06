@@ -1,0 +1,71 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Administration des commentaires{% endblock %}
+
+{% block body %}
+
+
+	<div class="container-fuid">
+		<h1 class="my-5">Gestion des annonces</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Date</th>
+					<th>Auteur</th>
+					<th>Commentaire</th>
+					<th>Note</th>
+					<th>Annonce</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for comment in comments %}
+                    <tr>
+                        {# Id #}
+                        <td>{{comment.id}}</td>
+                        {# Date #}
+                        <td>{{ comment.createdAt|date("d/m/Y") }}</td>
+                        {# Auteur #}
+                        <td>
+                            <img src="{{ comment.author.picture }}" alt="avatar de {{ comment.author.firstName }}" class="avatar avatar-micro mr-2">
+                            {{comment.author.fullName}}
+                        </td>
+                        {# Commentaire #}
+                        <td>
+                            {{ comment.content }}
+                        </td>
+                        {# Note #}
+                        <td class="text-center">
+                            <span class="badge badge-dark rounded">{{comment.rating|number_format(1, ',', ' ')}}</span>
+                        </td>
+                        {# Annonce #}
+                        <td>
+                            <a href="{{ path('ads_show', {'slug': comment.ad.slug}) }}">
+                                {{comment.ad.title}}
+                            </a>
+                        </td>
+                        {# Actions #}
+                        <td class="d-flex">
+                            <a href="{{ path('admin_comment_edit', {'id': comment.id}) }}" class="btn btn-primary p-0 m-1">
+                                <i class="fas fa-edit p-2"></i>
+                            </a>
+                            <a href="{{ path('admin_comment_delete', {'id': comment.id}) }}" class="btn btn-danger p-0 m-1">
+                                <i class="fas fa-trash p-2"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

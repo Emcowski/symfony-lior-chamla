@@ -2,17 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
  *      fields={"title"},
  *      message="Une autre annonce possède déjà ce titre, merci de le modifier."
@@ -84,10 +85,16 @@ class Ad
      */
     private $bookings;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ad", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -106,6 +113,39 @@ class Ad
             // mon title sera donc un argument de la fonction Slugify de l'instance de la classe Slugify
             $this->slug = $slugify->slugify($this->title);
         }
+    }
+
+    /**
+     * Trouver un commentaire à partir d'un auteur
+     *
+     * @param User $author
+     * 
+     * @return Comment|null
+     */
+    public function getCommentFromAuthor(User $author) {
+        // Parmi tous les commentaires de l'annonce, vérifier si l'auteur du commentaire est le même que l'auteur passé dans la fonction, alors on retourne le commentaire pour pouvoir l'afficher
+        foreach($this->comments as $comment) {
+            if($comment->getAuthor() === $author) return $comment;
+        }
+
+        return null;
+    }
+
+    /**
+     * Faire la moyenne des notes
+     *
+     * @return float
+     */
+    public function getAvgRatings() {
+        // Calculer la somme des notations
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment) {
+            // retourner le total + la note du commentaire, pour chaque commentaire, afin d'obtenir une somme
+            return $total + $comment->getRating();
+        }, 0);
+        // Faire la division pour avoir la moyenne, s'il y a au moins 1 commentaire
+        if(count($this->comments) > 0) return $sum / count($this->comments);
+
+        return 0;
     }
 
     /**
@@ -300,6 +340,37 @@ class Ad
             // set the owning side to null (unless already changed)
             if ($booking->getAd() === $this) {
                 $booking->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAd() === $this) {
+                $comment->setAd(null);
             }
         }
 

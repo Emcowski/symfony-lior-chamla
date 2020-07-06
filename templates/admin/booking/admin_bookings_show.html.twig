@@ -1,0 +1,57 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Administration des réservations{% endblock %}
+
+{% block body %}
+	<div class="container-fuid">
+		<h1 class="my-5">Gestion des réservations</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Booker</th>
+					<th>Date de réservation</th>
+					<th>Annonce</th>
+					<th>Durée</th>
+					<th>Montant</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for booking in bookings %}
+					<tr>
+						{# Id #}
+						<td>{{booking.id}}</td>
+						{# Booker #}
+						<td>
+                            <img src="{{booking.booker.picture}}" alt="avatar de {{booking.booker.fullName}}" class="avatar avatar-micro mr-2">
+                            {{booking.booker.fullName}}
+                        </td>
+						{# Date de résa #}
+						<td>{{booking.createdAt|date('d/m/Y H:i')}}</td>
+						{# Annonce #}
+						<td>
+                            <a href="{{ path('ads_show', {'slug': booking.ad.slug}) }}">
+                                {{booking.ad.title}}
+                            </a>
+                        </td>
+						{# Durée #}
+						<td>{{booking.getDuration}}</td>
+						{# Montant #}
+						<td>{{booking.amount}} &euro;</td>
+						{# Actions #}
+						<td>
+							<a href="{{ path('admin_booking_edit', {'id': booking.id}) }}" class="btn btn-primary">
+								<i class="fas fa-edit"></i>
+							</a>
+							<a href="{{ path('admin_booking_delete', {'id': booking.id}) }}" class="btn btn-danger">
+								<i class="fas fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

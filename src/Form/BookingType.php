@@ -41,6 +41,10 @@ class BookingType extends ApplicationType
     {
         $resolver->setDefaults([
             'data_class' => Booking::class,
+            'validation_groups' => [
+                "Default",
+                "front",
+            ], // Mettre option par défaut pour les validations, au lieu de le mettre dans le controller lors de la création du formulaire 
         ]);
     }
 }

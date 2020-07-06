@@ -11,14 +11,48 @@
 
     <div class="container">
         
-        <h1>Créer une nouvelle annonce</h1>
+        <h1 class="my-5">Créer une nouvelle annonce</h1>
         
         {{ form_start(form) }}
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-light">
+                        <h2>Informations générales</h2>
+                        <hr>
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.slug) }}
+                        {{ form_row(form.price) }}
+                        {{ form_row(form.rooms) }}
+                    </div>
+                    <div class="alert alert-light">
+                        <h2>Détail de l'annonce</h2>
+                        <hr>
+                        {{ form_row(form.introduction) }}
+                        {{ form_row(form.content) }}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="alert alert-light">
+                        <h2>Images de l'annonce</h2>
+                        <hr>
+                        {{ form_row(form.coverImage) }}
+                        {{ form_row(form.images) }}
+                    </div>
+                </div>
+            </div>
 
-        {{ form_widget(form) }}
+        {# Supprimer le form_widget car tous les champs ont été affichés au-dessus #}
+        {# {{ form_widget(form) }} #}
 
-        {# Bouton valider ajout de l'annonce #}
-        <button type="submit" class="btn btn-primary">Créer l'annonce</button>
+        <div class="alert alert-success clearfix">
+            <h2 class="alert-heading mb-3">Sauvegarder mon annonce</h2>
+            <p>Vous êtes sur le point de créer votre annonce ;)</p>
+            {# Bouton valider ajout de l'annonce #}
+            <button type="submit" class="btn btn-primary mb-2 float-right">
+                <i class="fas fa-check"></i>
+                Créer l'annonce
+            </button>
+        </div>
 
         {{ form_end(form) }}
 

@@ -8,6 +8,10 @@ div.container {
     border-radius: 5px;
 }
 
+/* Couleur des étoiles pour les notes */
+i.fa-star {
+    color: goldenrod;
+}
 
 /* Bandeau de page item ad */
 div.ad-headband {
@@ -41,9 +45,23 @@ fieldset.form-group {
     max-width: 24px;
     max-height: 24px;
 }
+.avatar-micro {
+    max-width: 20px;
+    max-height: 20px;
+}
 
 /* Réserver une annonce : date bloquée */
 td.disabled.disabled-date.day {
     color: #ae0f0f;
     text-decoration: line-through;
+}
+
+/* PAGE de connexion à l'administration */
+#admin-login-page {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+#admin-login-page .card {
+    margin-top: 30px;
 }

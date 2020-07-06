@@ -18,15 +18,15 @@
     <body>
 
         {# Header #}
-        {% include 'partials/header.html.twig' %}
+        {% include 'admin/partials/admin_header.html.twig' %}
 
-        {# Alertes #}
-        {% include 'partials/alert.html.twig' %}   
+        {# Alertes tpl en provenance de la structure front #}
+        {% include 'partials/alert.html.twig' %} 
 
         {% block body %}{% endblock %}
         
         {# Footer #}
-        {% include 'partials/footer.html.twig' %}
+        {% include 'admin/partials/admin_footer.html.twig' %}
         
             <script src="/js/jquery.min.js"></script>
             <script src="/js/popper.min.js"></script>

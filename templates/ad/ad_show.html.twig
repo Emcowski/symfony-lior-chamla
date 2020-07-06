@@ -8,14 +8,14 @@
 
     <div class="ad-headband" style="background-image: url({{ ad.coverImage }})">
         <div class="container">
-            <h1>{{ ad.title }}</h1>
+            <h1 class="my-5">{{ ad.title }}</h1>
             <p>{{ ad.introduction }}</p>
             <p class="h2">
                 {# Traiter pluriel de chambre #}
                 {% if ad.rooms == 1 %}
-                    <strong>{{ ad.rooms }} chambre</strong> pour <strong>{{ ad.price }} &euro;</strong> par nuit
+                    <strong>{{ ad.rooms }} chambre</strong> pour <strong>{{ ad.price|number_format(2, ',', ' ') }}&euro;</strong> par nuit
                 {% else %}
-                    <strong>{{ ad.rooms }} chambres</strong> pour <strong>{{ ad.price }} &euro;</strong> par nuit
+                    <strong>{{ ad.rooms }} chambres</strong> pour <strong>{{ ad.price|number_format(2, ',', ' ') }}&euro;</strong> par nuit
                 {% endif %}
                 <a href="{{ path('booking_create', {'slug': ad.slug}) }}" class="btn btn-primary">Réserver</a>
                 {# Si l'utilisateur connecté correspond à l'utilisateur qui a créé l'annonce, alors on affiche un lien de modif de cette annonce #}
@@ -59,6 +59,40 @@
                         <span class="sr-only">Suivante</span>
                     </a>
                 </div>
+
+                <hr>
+
+                {% if ad.comments|length > 0 %}
+                    <h2 class="mb-3">Commentaires des voyageurs :</h2>
+
+                    <div class="alert alert-info">
+                        <h4 class="alert-heading text-center">
+                            <div class="row align-items-center">
+                                <div class="col">Note globale donnée par les voyageurs :</div>
+                                <div class="col">
+                                    {% include 'partials/rating.html.twig' with {'rating': ad.avgRatings} %}
+                                    <br>
+                                    <small>(Calculée sur {{ ad.comments|length }} avis)</small>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+
+                    {% for comment in ad.comments %}
+                        <div class="bg-light rounded mb-3 py-3 px-3">
+                            <strong>{{comment.author.firstName}} a écrit :</strong>
+                            <blockquote>
+                                {{ comment.content }}
+                            </blockquote>
+                            <strong>Note attribuée :</strong>
+                            {# Note sur 5 étoiles, avec 'with' injecter variable rating correspondant à la note dans l'include #}
+                            {% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+
+                        </div>
+                    {% endfor %}
+                {% else %}
+                <h2>Cette annonce n'a pas encore de commentaire.</h2>
+                {% endif %}
 
             </div>
 

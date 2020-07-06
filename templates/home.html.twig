@@ -4,7 +4,7 @@
 
 {% block header %}
 
-    <h1>{{ title | upper }}</h1>
+    <h1 class="my-5">{{ title | upper }}</h1>
     <p>Le paragraphe du site page accueil</p>
     <a href="{{ path('hello', {'prenom': 'Lior', 'age': 31}) }}">lien page hello</a>
     </br>
@@ -26,7 +26,7 @@
         </p>
     </div>
 
-    <h2 class="h1 mt-3 mb-4">Nos appartements stars</h2>
+    <h2 class="h1 my-5">Nos appartements stars</h2>
     <div class="row">
         <div class="col-md-4">
             <div class="card bg-light mb-3">
@@ -82,7 +82,7 @@
 
     </div>
 
-    <h2 class="h1 mt-3 mb-4">Nos propriétaires stars</h2>
+    <h2 class="h1 my-5">Nos propriétaires stars</h2>
     <div class="row">
         <div class="col">
             <div class="card border-secondary mb-3">

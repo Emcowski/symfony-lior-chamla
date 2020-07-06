@@ -9,7 +9,7 @@
     {% set author = ad.author %}
 
     <div class="container">
-        <h1>Votre réservation n°{{booking.id}}</h1>
+        <h1 class="my-5">Votre réservation n°{{booking.id}}</h1>
 
         {# La variable app.request permet d'accéder à la requête http, ici on lui passe un param withAlert #}
         {% if app.request.query.get('withAlert') %}
@@ -37,9 +37,9 @@
                         <dt class="col-md-4">Nombre de nuits</dt>
                         <dd class="col-md-8">{{booking.duration}}</dd>
                         <dt class="col-md-4">Montant total</dt>
-                        <dd class="col-md-8">{{booking.amount}} &euro;</dd>
+                        <dd class="col-md-8">{{booking.amount|number_format(2, ',', ' ')}}&euro;</dd>
                         <dt class="col-md-4">Commentaire</dt>
-                        <dd class="col-md-8">{{booking.comment}}</dd>
+                        <dd class="col-md-8">{{booking.comment|default('Aucun commentaire')}}</dd>
                     </dl>
                     <hr>
                     <h2 class="alert-heading">Votre hôte</h2>
@@ -51,12 +51,36 @@
                             <h4>
                                 <a href="{{ path('user_show', {'slug': author.slug }) }}">{{author.fullName}}</a>
                             </h4>
-                            <span class="badge badge-primary">{{author.ads|length}}</span>
+                            <span class="badge badge-primary">{{author.ads|length}} annonces</span>
                         </div>
                     </div>
+
                     <div>{{author.description|raw}}</div>
                     <a href="{{ path('user_show', {'slug': author.slug}) }}" class="btn btn-primary">Plus d'infos sur {{author.fullName}}</a>
                 </div>
+
+                <div id="comment" class="alert alert-light">
+                    <h2 class="alert-heading">Votre avis compte !</h2>
+                    {# Si la date d'aujourd'hui est supérieure à la date de fin de réservation, on peut laisser un commentaire #}
+                    {% if date() > date(booking.endDate) %}
+                        {# Récupérer le commentaire de l'user s'il existe l'afficher #}
+                        {% set comment = booking.ad.getCommentFromAuthor(app.user) %}
+                        {% if comment is not null %}
+                            <blockquote>
+                                {{ comment.content }}
+                            </blockquote>
+                            <strong>Note : {% include 'partials/rating.html.twig' with {'rating': comment.rating} %}</strong>
+                        {% else %}   
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            {{ form_end(form) }}
+                        {% endif %}
+                    {% else %}
+                        <p>Vous ne pouvez pas noter cette annonce dans que votre voyage n'est pas terminé :)</p>
+                    {% endif %}
+                </div>
+
             </div>
             <div class="col">
                 <div class="alert alert-ligh">
