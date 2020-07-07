@@ -1,0 +1,24 @@
+{# Pagination #}
+<div class="d-flex justify-content-center">
+{# {% set page = pagination.page %}
+{% set pages = pagination.pages %} #}
+
+    <ul class="pagination">
+        {# Page précédente #}
+        <li class="page-item {% if page == 1 %}disabled{% endif %}"> {# Gestion de la désactivation du lien "précédent" si on est sur la page 1 et donc pas de page avant #}
+            <a class="page-link" href="{{ path(route, {'page': page - 1}) }}">&laquo;</a>
+        </li>
+
+        {% for i in 1..pages %}
+            <li class="page-item {% if page == i %}active{% endif %}">
+                <a class="page-link" href="{{ path(route, {'page': i}) }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+
+        {# Page suivante #}
+        <li class="page-item {% if page == pages %}disabled{% endif %}"> {# Gestion de la désactivation du lien "suivant" si on est sur la dernière page et donc pas de page après #}
+            <a class="page-link" href="{{ path(route, {'page': page + 1}) }}">&raquo;</a>
+        </li>
+    </ul>
+    
+</div>

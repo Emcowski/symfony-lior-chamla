@@ -20,7 +20,7 @@
 				</tr>
 			</thead>
 			<tbody>
-                {% for comment in comments %}
+                {% for comment in pagination.data %}
                     <tr>
                         {# Id #}
                         <td>{{comment.id}}</td>
@@ -58,14 +58,11 @@
                 {% endfor %}
             </tbody>
         </table>
+
+		{# Pagination 
+		{% include 'admin/partials/admin_pagination.html.twig' with {'route': 'admin_comments'} %}#}
+		{{ pagination.displayTwig() }}
+
     </div>
-
-
-
-
-
-
-
-
 
 {% endblock %}

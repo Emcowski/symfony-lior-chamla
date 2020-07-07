@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Form\AnnonceType;
+use App\Service\Pagination;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -13,14 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAdController extends AbstractController
 {
     /**
-     * @Route("/admin/ads", name="admin_ads_index")
+     * @Route("/admin/ads/{page<\d+>?1}", name="admin_ads_index")
+     * Le </d+?> signifie un requirment d'une expression regulière sur l'option page, un chiffre decimal est attendu, le ? signifie qu'il est optionnel, le 1 après ? signifie la valeur par défaut
      * 
      * @param AdRepository $repo
      */
-    public function indexAds(AdRepository $repo)
+    public function indexAds(AdRepository $repo, $page, Pagination $pagination)
     {
+        $pagination->setEntityClass(Ad::class)
+                    ->setPage($page);
+
         return $this->render('admin/ad/admin_ads_index.html.twig', [
-            'ads' => $repo->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 
