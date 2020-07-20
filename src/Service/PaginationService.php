@@ -6,7 +6,7 @@ use Twig\Environment;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class Pagination {
+class PaginationService {
     // Définir l'entité sur laquelle le service va travailler
     private $entityClass;
     // Puis les var auxquelles on veut accéder

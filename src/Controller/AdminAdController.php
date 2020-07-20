@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Form\AnnonceType;
-use App\Service\Pagination;
+use App\Service\PaginationService;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,7 +19,7 @@ class AdminAdController extends AbstractController
      * 
      * @param AdRepository $repo
      */
-    public function indexAds(AdRepository $repo, $page, Pagination $pagination)
+    public function indexAds(AdRepository $repo, $page, PaginationService $pagination)
     {
         $pagination->setEntityClass(Ad::class)
                     ->setPage($page);

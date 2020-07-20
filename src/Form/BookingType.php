@@ -25,7 +25,7 @@ class BookingType extends ApplicationType
     {
         // Créer le formulaire
         $builder
-            ->add('startDate', TextType::class, $this->getConfiguration("Date d'arrivé", "La date à laquelle vous comptez arriver"))
+            ->add('startDate', TextType::class, $this->getConfiguration("Date d'arrivée", "La date à laquelle vous comptez arriver"))
             ->add('endDate', TextType::class, $this->getConfiguration("Date de départ", "La date à laquelle vous quittez les lieux"))
             ->add('comment', TextareaType::class, $this->getConfiguration(false, "Si vous souhaitez laisser un commentaire c'est par ici !", [
                 'required' => false,

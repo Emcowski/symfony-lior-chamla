@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Service\Pagination;
+use App\Service\PaginationService;
 use App\Form\AdminCommentType;
 use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ class AdminCommentController extends AbstractController
      * 
      * @param AdRepository $repo
      */
-    public function indexComments(CommentRepository $repo, $page, Pagination $pagination)
+    public function indexComments(CommentRepository $repo, $page, PaginationService $pagination)
     {
         $pagination->setEntityClass(Comment::class)
                     ->setLimit(7)

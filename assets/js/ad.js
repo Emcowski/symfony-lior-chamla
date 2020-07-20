@@ -2,6 +2,7 @@
 ** Ajouter une ligne d'ajout d'image 
 */
 jQuery('#add-image').click(function() {
+    console.log('OK');
     // Récupérer le numéro des futurs champs à créer
     const index = +jQuery('#widgets-counter').val();
 
