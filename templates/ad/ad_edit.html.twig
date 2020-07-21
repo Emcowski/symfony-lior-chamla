@@ -26,4 +26,5 @@
     {# <script src="./assets/js/ad.js"></script> #}
     {# Le build du ad.js se fait bien et le fichier est appelé mais les fonctions ne tournent pas sur le site... donc entrer chemin en dur ci-dessus en attendant de résoudre #}
     <script src="{{ asset('build/js/ad.js') }}"></script>
+    {‌{ encore_entry_script_tags('app') }} {# solution donné sur le forum de la formation mais ne fonctionne pas avec les lignes ajoutees en addEntry dans webpack.config.... #}
 {% endblock %}

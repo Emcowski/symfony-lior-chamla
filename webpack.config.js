@@ -25,6 +25,9 @@ Encore
      */
     .addEntry('js/ad', './assets/js/ad.js')
     .addEntry('js/bootstrap-datepicker', './assets/js/bootstrap-datepicker.min.js')
+    // .addEntry('js/jquery', './assets/js/jquery.min.js')
+    // .addEntry('js/jquery-ui', './assets/js/jquery-ui.min.js')
+    // .addEntry('js/bootstrap', './assets/js/bootstrap.min.js')
     .addEntry('js/app', './assets/js/app.js')
     .addStyleEntry('css/app', './assets/css/app.css')
 
